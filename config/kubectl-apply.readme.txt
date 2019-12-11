@@ -1,0 +1,27 @@
+
+
+sudo docker pull zhangwendi/alpine-bash-3.8:1.0
+sudo docker pull zhangwendi/apollo-portal-server:1.5
+sudo docker pull zhangwendi/apollo-config-server:v1.0.0
+sudo docker pull zhangwendi/apollo-admin-server:1.5
+
+
+# 根据机器配置修改replica 大小
+# replica都为1, 最少需要2G
+
+# create namespace
+kubectl create namespace sre
+
+# 修改mysql /var/lib/msyql的挂载路径
+kubectl apply -f apollo-env-prod/service-mysql-for-apollo-prod-env.yaml --record
+
+# 进入mysql容器, 进入mysql, wegene/wegene
+# 执行脚本apolloconfigdb.sql, apolloportaldb.sql
+
+
+kubectl apply -f apollo-env-prod/service-apollo-config-server-prod.yaml --record
+kubectl apply -f apollo-env-prod/service-apollo-admin-server-prod.yaml --record
+
+
+# portal
+kubectl apply -f service-apollo-portal-server.yaml --record
