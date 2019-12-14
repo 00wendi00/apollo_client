@@ -1,0 +1,2 @@
+*.sql linguist-language=python
+*.yaml linguist-language=python
